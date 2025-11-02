@@ -1,106 +1,121 @@
 using UnityEngine;
+using UnityEngine.XR;
 
-public class SwordMovement : MonoBehaviour
+public class SwordController : MonoBehaviour
 {
-    [Header("Hierarchy")]
-    [Tooltip("Child transform that holds the MeshRenderer and/or CapsuleCollider (the blade).")]
-    public Transform blade; // child with mesh/collider
+    [Header("Controller Settings")]
+    [Tooltip("The right controller anchor (usually OVRCameraRig's RightHandAnchor)")]
+    public Transform rightControllerAnchor;
+    
+    [Header("Rotation Offset")]
+    [Tooltip("Adjust these values to orient the sword correctly in your hand")]
+    public Vector3 rotationOffset = new Vector3(-90f, 0f, 0f);
+    
+    [Header("Position Offset")]
+    [Tooltip("Optional position offset from the controller")]
+    public Vector3 positionOffset = Vector3.zero;
+    
+    [Header("Follow Settings")]
+    [Tooltip("Should the sword follow smoothly or snap to controller")]
+    public bool smoothFollow = false;
+    
+    [Tooltip("If smooth follow is enabled, how fast should it follow")]
+    public float followSpeed = 15f;
 
-    [Header("Controller Anchors")]
-    public Transform leftController;   // aim AWAY from this
-    public Transform rightController;  // base should sit here
+    private Quaternion offsetRotation;
 
-    [Header("Visibility")]
-    [Tooltip("Hide blade if controller distance falls below this.")]
-    public float minVisibleLength = 0.001f;
-
-    [Header("Offsets")]
-    [Tooltip("Local offset from the RIGHT controller anchor (e.g., grip tip).")]
-    public Vector3 startOffsetLocal = Vector3.zero;
-
-    // optional caches
-    MeshRenderer bladeRenderer;
-    CapsuleCollider bladeCapsule;
-    MeshFilter bladeMeshFilter;
-
-    void Awake()
+    void Start()
     {
-        if (!blade) return;
-        bladeRenderer   = blade.GetComponent<MeshRenderer>();
-        bladeCapsule    = blade.GetComponent<CapsuleCollider>();
-        bladeMeshFilter = blade.GetComponent<MeshFilter>();
-        // We are NOT changing collider/mesh sizes here.
+        // Convert the rotation offset to a quaternion
+        offsetRotation = Quaternion.Euler(rotationOffset);
+        
+        // Try to find the right controller anchor automatically if not assigned
+        if (rightControllerAnchor == null)
+        {
+            GameObject ovrCameraRig = GameObject.Find("OVRCameraRig");
+            if (ovrCameraRig != null)
+            {
+                Transform rightHand = ovrCameraRig.transform.Find("TrackingSpace/RightHandAnchor");
+                if (rightHand != null)
+                {
+                    rightControllerAnchor = rightHand;
+                    Debug.Log("SwordController: Automatically found RightHandAnchor");
+                }
+                else
+                {
+                    Debug.LogWarning("SwordController: Could not find RightHandAnchor. Please assign manually.");
+                }
+            }
+        }
     }
 
-    void LateUpdate()
+    void Update()
     {
-        if (!blade || !leftController || !rightController) return;
+        if (rightControllerAnchor == null)
+        {
+            Debug.LogWarning("SwordController: Right controller anchor is not assigned!");
+            return;
+        }
 
-        // Start point (right controller anchor + optional local offset)
-        Vector3 start = rightController.TransformPoint(startOffsetLocal);
+        // Calculate target position and rotation
+        Vector3 targetPosition = rightControllerAnchor.position + rightControllerAnchor.TransformDirection(positionOffset);
+        Quaternion targetRotation = rightControllerAnchor.rotation * offsetRotation;
 
-        // Direction = directly AWAY from the left controller
-        Vector3 away = rightController.position - leftController.position;
-        float dist   = away.magnitude;
-
-        bool show = dist >= minVisibleLength;
-        if (bladeRenderer) bladeRenderer.enabled = show;
-        if (bladeCapsule)  bladeCapsule.enabled  = show;
-        if (!show) return;
-
-        Vector3 dir = away / dist;
-
-        // 1) Rotation: align blade +Y with dir
-        Quaternion rot = Quaternion.FromToRotation(Vector3.up, dir);
-        blade.rotation = rot;
-
-        // 2) Position: put the blade's base exactly at `start`.
-        //    Since we're NOT scaling, offset the blade's CENTER by its OWN half-length in world units.
-        float halfLenWorld = GetBladeHalfLengthWorld();
-        Vector3 center     = start + dir * halfLenWorld;
-        blade.position     = center;
+        if (smoothFollow)
+        {
+            // Smooth interpolation
+            transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime * followSpeed);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * followSpeed);
+        }
+        else
+        {
+            // Direct snap
+            transform.position = targetPosition;
+            transform.rotation = targetRotation;
+        }
     }
 
-    float GetBladeHalfLengthWorld()
+    // Helper method to update rotation offset at runtime (useful for testing)
+    public void SetRotationOffset(Vector3 newOffset)
     {
-        // Prefer mesh bounds along local Y (works even if not a capsule)
-        if (bladeMeshFilter && bladeMeshFilter.sharedMesh)
-        {
-            // sharedMesh.bounds is in the blade's LOCAL space.
-            float localSizeY = bladeMeshFilter.sharedMesh.bounds.size.y;
-            float worldScaleY = blade.lossyScale.y;
-            return 0.5f * localSizeY * worldScaleY;
-        }
+        rotationOffset = newOffset;
+        offsetRotation = Quaternion.Euler(rotationOffset);
+    }
 
-        // Fallback: capsule height in local units scaled by lossy Y
-        if (bladeCapsule)
+    // Optional: Draw gizmos in editor to visualize the attachment
+    void OnDrawGizmos()
+    {
+        if (rightControllerAnchor != null)
         {
-            return 0.5f * bladeCapsule.height * blade.lossyScale.y;
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawLine(rightControllerAnchor.position, transform.position);
+            
+            Gizmos.color = Color.red;
+            Gizmos.DrawRay(transform.position, transform.forward * 0.3f);
         }
-
-        // Last resort: assume Unity cylinder-like defaults (height ~2 in local units)
-        return 0.5f * 2f * blade.lossyScale.y;
     }
     
-    void OnTriggerEnter(Collider other)
+        void OnTriggerEnter(Collider other)
     {
+
         if (other.CompareTag("WeakSpot"))
         {
-            Debug.Log("Blade entered SceneObject: " + other.name);
-            other.gameObject.GetComponent<FlashWhenHit>().Flash();
-            // TODO: add your hit or interaction logic here
+            Debug.Log("Blade entered WeakSpot: " + other.name);
+            var fw = other.GetComponent<FlashWhenHit>();
+            if (fw) fw.Flash();
         }
     }
 
     void OnTriggerExit(Collider other)
     {
+
         if (other.CompareTag("SceneObject"))
         {
             Debug.Log("Blade exited SceneObject: " + other.name);
-            // TODO: add your cleanup logic here
         }
     }
+}
 
     
     
-}
+

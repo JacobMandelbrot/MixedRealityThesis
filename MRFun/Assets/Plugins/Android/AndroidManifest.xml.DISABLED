@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <!-- Do NOT declare BOUNDARYLESS here -->
+
+  <application>
+    <!-- Passthrough splash is OK -->
+    <meta-data android:name="com.oculus.ossplash.background"
+               android:value="passthrough-contextual" />
+
+    <!-- Limit to devices you support -->
+    <meta-data android:name="com.oculus.supportedDevices"
+               android:value="quest2|questpro|quest3|quest3s" />
+
+    <!-- Hand tracking preference -->
+    <meta-data android:name="com.oculus.handtracking.frequency"
+               android:value="LOW" />
+
+    <!-- Let Unity show permission prompts normally -->
+    <meta-data android:name="unityplayer.SkipPermissionsDialog"
+               android:value="false" />
+  </application>
+
+  <!-- Features & permissions -->
+  <uses-feature android:name="oculus.software.handtracking" android:required="false" />
+  <uses-feature android:name="com.oculus.feature.PASSTHROUGH" android:required="false" />
+
+  <uses-permission android:name="android.permission.VIBRATE" />
+  <uses-permission android:name="com.oculus.permission.HAND_TRACKING" />
+  <uses-permission android:name="com.oculus.permission.USE_ANCHOR_API" />
+  <uses-permission android:name="com.oculus.permission.USE_SCENE" />
+</manifest>
