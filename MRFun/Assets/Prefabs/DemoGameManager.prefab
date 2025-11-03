@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &147710479770456382
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2317459099029953510}
+  - component: {fileID: 5722554022032161698}
+  m_Layer: 0
+  m_Name: DemoGameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2317459099029953510
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 147710479770456382}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.2103, y: 0, z: 0.33764}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5722554022032161698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 147710479770456382}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a603750eb9b0f74ba385350424e8c5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DemoGameManager
+  modelSpawnPoint: {fileID: 0}
+  lightSpawnPoint: {fileID: 0}
+  modelPrefabs:
+  - {fileID: 3281755754987455352, guid: 246c55d82db064a4da5fc64b2faa626c, type: 3}
+  - {fileID: 8323515653762967534, guid: 25cb96c8b11473d44a7165744bd1f364, type: 3}
+  - {fileID: 3862277631971027947, guid: 91f03b25b95fe2e4190b62283056ea23, type: 3}
+  lightPrefabs:
+  - {fileID: 189810021420963113, guid: 6c70579e1397a804f9741328b1a0eaa1, type: 3}
+  - {fileID: 7317492743812243480, guid: 8645c07b6710f7a438bae267d73c218f, type: 3}
+  - {fileID: 182438287924778571, guid: 55dbcedecde0842479c26110ee378b17, type: 3}
+  dummyPrefab: {fileID: 3913981399891005945, guid: 18f208aca3fb2de4f9ec4130a21d75ec, type: 3}

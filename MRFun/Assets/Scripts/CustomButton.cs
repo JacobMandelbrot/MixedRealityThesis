@@ -1,12 +1,15 @@
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class CustomButton : MonoBehaviour
 {
     private Material originalMaterial;
     private Material currentGlowMat;
-
-    public string modeChange;
+    
+    public UnityEvent onInteract;
+    
+    public AudioClip hitEffect;
     
     [SerializeField] private Material glowMaterial;
 
@@ -49,7 +52,10 @@ public class CustomButton : MonoBehaviour
         if (other.CompareTag("Hand"))
         {
             StartGlow();
-            GameManager.Instance.ChangeMode(modeChange);
+            DemoGameManager.Instance.PlaySound(hitEffect);
+            
+            onInteract?.Invoke();
+            // GameManager.Instance.ChangeMode(modeChange);
         }
     }
 

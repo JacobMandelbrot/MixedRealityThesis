@@ -28,9 +28,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8262299004587526259}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.73159933, y: 0.043933723, z: 0.073849544, w: 0.67629766}
+  m_LocalRotation: {x: -0.73159736, y: 0.04393879, z: 0.073852785, w: 0.6762991}
   m_LocalPosition: {x: 0.348, y: 0.704, z: 0.878}
-  m_LocalScale: {x: 0.19765198, y: -0.0134879695, z: 0.19765198}
+  m_LocalScale: {x: 0.11263001, y: -0.007685985, z: 0.11263001}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -124,5 +124,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7df9cb12709aea41876eb30dd609564, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FlashWhenHit
-  flashColor: {r: 1, g: 0, b: 0, a: 1}
+  flashColor: {r: 0.16352195, g: 0, b: 0, a: 1}
   flashDuration: 0.12

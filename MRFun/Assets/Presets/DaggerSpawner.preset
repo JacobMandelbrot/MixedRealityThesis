@@ -1,0 +1,92 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!181963792 &2655988077585873504
+Preset:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: DaggerSpawner
+  m_TargetType:
+    m_NativeTypeID: 114
+    m_ManagedTypePPtr: {fileID: 11500000, guid: 823e30312aed4d34681e5f5f4aa837fd, type: 3}
+    m_ManagedTypeFallback: 
+  m_Properties:
+  - target: {fileID: 0}
+    propertyPath: m_Enabled
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_EditorHideFlags
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_EditorClassIdentifier
+    value: '::'
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: daggerPrefab
+    value: 
+    objectReference: {fileID: 428925409376773783, guid: 3c0dbe9f2ad79624f90f4a457026f016, type: 3}
+  - target: {fileID: 0}
+    propertyPath: rightHandAnchor
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: normalLocalPosition.x
+    value: 0.0268
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: normalLocalPosition.y
+    value: -0.0142
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: normalLocalPosition.z
+    value: -0.0035
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: normalLocalRotation.x
+    value: -107.3
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: normalLocalRotation.y
+    value: -196.64
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: normalLocalRotation.z
+    value: 77.826
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: icepickLocalPosition.x
+    value: 0.025
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: icepickLocalPosition.y
+    value: -0.0148
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: icepickLocalPosition.z
+    value: -0.0001
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: icepickLocalRotation.x
+    value: 77.691
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: icepickLocalRotation.y
+    value: -191.542
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: icepickLocalRotation.z
+    value: -252.893
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: gripThreshold
+    value: 0.7
+    objectReference: {fileID: 0}
+  m_ExcludedProperties: []
+  m_CoupledType:
+    m_NativeTypeID: 0
+    m_ManagedTypePPtr: {fileID: 0}
+    m_ManagedTypeFallback: 
+  m_CoupledProperties: []

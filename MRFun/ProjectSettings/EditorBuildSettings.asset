@@ -11,9 +11,12 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Sword.unity
     guid: 5f31212e6dceb21499a81eed4e31a3c0
+  - enabled: 1
+    path: Assets/Scenes/Demo.unity
+    guid: e82cde2d412820f469affaeee9b5cdf6
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: d1ecc5954d3db6f4c94925b9e9c5acd5, type: 2}
     com.unity.dt.app-ui: {fileID: 11400000, guid: 1b1c20d82303e4b5781c3ef50ac1449f, type: 2}

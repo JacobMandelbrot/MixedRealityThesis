@@ -86,7 +86,7 @@ public class DaggerAttack : MonoBehaviour
             var fw = other.GetComponent<FlashWhenHit>();
             if (fw) fw.Flash();
             
-            GameManager.Instance.PlaySound(hitEffect);
+            DemoGameManager.Instance.PlaySound(hitEffect);
             TriggerHapticHalfSecond(OVRInput.Controller.RTouch);
         }
         
@@ -97,7 +97,7 @@ public class DaggerAttack : MonoBehaviour
             fw.ActivateRandomWeakSpot();
             other.gameObject.SetActive(false);
             
-            GameManager.Instance.PlaySound(hitEffect);
+            DemoGameManager.Instance.PlaySound(hitEffect);
             TriggerHapticHalfSecond(OVRInput.Controller.RTouch);
         }
     }

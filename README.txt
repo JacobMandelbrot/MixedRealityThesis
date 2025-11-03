@@ -1,0 +1,1 @@
+Adding or removing passthrough makes xr simulator work.
